@@ -374,18 +374,28 @@ _bitmask_dict['__hash__'] = __hash__
 del __hash__
 
 
-def __cmp__(self, other):
-    cls_cmp = cmp(self.__class__, other.__class__)
-    if cls_cmp:
-        return cls_cmp
-    elif self._value_ < other._value_:
-        return -1
-    elif self._value_ == other._value_:
-        return 0
-    else:
-        return 1
-_bitmask_dict['__cmp__'] = __cmp__
-del __cmp__
+def __lt__(self, other):
+    return (self.__class__, self._value_) < (other.__class__, other._value_)
+_bitmask_dict['__lt__'] = __lt__
+del __lt__
+
+
+def __gt__(self, other):
+    return (self.__class__, self._value_) > (other.__class__, other._value_)
+_bitmask_dict['__gt__'] = __gt__
+del __gt__
+
+
+def __ge__(self, other):
+    return (self.__class__, self._value_) >= (other.__class__, other._value_)
+_bitmask_dict['__ge__'] = __ge__
+del __ge__
+
+
+def __le__(self, other):
+    return (self.__class__, self._value_) <= (other.__class__, other._value_)
+_bitmask_dict['__le__'] = __le__
+del __le__
 
 
 def enum_nonzero(self):

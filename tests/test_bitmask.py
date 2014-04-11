@@ -684,36 +684,126 @@ class BitMaskTestCase(TestCase):
 
         self.assertEqual(len(hashes), len(set(hashes)))
 
-    def test_cmp(self):
-        """cmp(class ..(BitMask)(..), ..)
+    def test_lt(self):
+        """class ..(BitMask)(..) < class ..(BitMask)(..)
         """
 
-        cls_cmp = cmp(TestMask, OtherTestMask)
+        cls_cmp = TestMask < OtherTestMask
 
         for a, b, e in [
-                (TestMask.a, TestMask.a, 0),
-                (TestMask.a, TestMask.b, -1),
-                (TestMask.a, TestMask.c, -1),
-                (TestMask.a, TestMask.d, -1),
-                (TestMask.a, TestMask.e, -1),
-                (TestMask.b, TestMask.a, 1),
-                (TestMask.c, TestMask.a, 1),
-                (TestMask.d, TestMask.a, 1),
-                (TestMask.e, TestMask.a, 1),
+                (TestMask.a, TestMask.a, False),
+                (TestMask.a, TestMask.b, True),
+                (TestMask.a, TestMask.c, True),
+                (TestMask.a, TestMask.d, True),
+                (TestMask.a, TestMask.e, True),
+                (TestMask.b, TestMask.a, False),
+                (TestMask.c, TestMask.a, False),
+                (TestMask.d, TestMask.a, False),
+                (TestMask.e, TestMask.a, False),
                 (TestMask.a, OtherTestMask.a, cls_cmp),
                 (TestMask.b, OtherTestMask.b, cls_cmp),
                 (TestMask.c, OtherTestMask.c, cls_cmp),
                 (TestMask.d, OtherTestMask.d, cls_cmp),
                 (TestMask.e, OtherTestMask.e, cls_cmp),
-                (OtherTestMask.a, TestMask.a, -cls_cmp),
-                (OtherTestMask.b, TestMask.b, -cls_cmp),
-                (OtherTestMask.c, TestMask.c, -cls_cmp),
-                (OtherTestMask.d, TestMask.d, -cls_cmp),
-                (OtherTestMask.e, TestMask.e, -cls_cmp),
+                (OtherTestMask.a, TestMask.a, not cls_cmp),
+                (OtherTestMask.b, TestMask.b, not cls_cmp),
+                (OtherTestMask.c, TestMask.c, not cls_cmp),
+                (OtherTestMask.d, TestMask.d, not cls_cmp),
+                (OtherTestMask.e, TestMask.e, not cls_cmp),
         ]:
-            if e == 0:
-                self.assertEqual(cmp(a, b), 0)
-            elif e < 0:
-                self.assertLess(cmp(a, b), 0)
-            else:
-                self.assertGreater(cmp(a, b), 0)
+            self.assertEqual(a < b,
+                             e,
+                             'expected %r < %r to be %r' % (a, b, e))
+
+    def test_le(self):
+        """class ..(BitMask)(..) <= class ..(BitMask)(..)
+        """
+
+        cls_cmp = TestMask <= OtherTestMask
+
+        for a, b, e in [
+                (TestMask.a, TestMask.a, True),
+                (TestMask.a, TestMask.b, True),
+                (TestMask.a, TestMask.c, True),
+                (TestMask.a, TestMask.d, True),
+                (TestMask.a, TestMask.e, True),
+                (TestMask.b, TestMask.a, False),
+                (TestMask.c, TestMask.a, False),
+                (TestMask.d, TestMask.a, False),
+                (TestMask.e, TestMask.a, False),
+                (TestMask.a, OtherTestMask.a, cls_cmp),
+                (TestMask.b, OtherTestMask.b, cls_cmp),
+                (TestMask.c, OtherTestMask.c, cls_cmp),
+                (TestMask.d, OtherTestMask.d, cls_cmp),
+                (TestMask.e, OtherTestMask.e, cls_cmp),
+                (OtherTestMask.a, TestMask.a, not cls_cmp),
+                (OtherTestMask.b, TestMask.b, not cls_cmp),
+                (OtherTestMask.c, TestMask.c, not cls_cmp),
+                (OtherTestMask.d, TestMask.d, not cls_cmp),
+                (OtherTestMask.e, TestMask.e, not cls_cmp),
+        ]:
+            self.assertEqual(a <= b,
+                             e,
+                             'expected %r <= %r to be %r' % (a, b, e))
+
+    def test_gt(self):
+        """class ..(BitMask)(..) > class ..(BitMask)(..)
+        """
+
+        cls_cmp = TestMask > OtherTestMask
+
+        for a, b, e in [
+                (TestMask.a, TestMask.a, False),
+                (TestMask.a, TestMask.b, False),
+                (TestMask.a, TestMask.c, False),
+                (TestMask.a, TestMask.d, False),
+                (TestMask.a, TestMask.e, False),
+                (TestMask.b, TestMask.a, True),
+                (TestMask.c, TestMask.a, True),
+                (TestMask.d, TestMask.a, True),
+                (TestMask.e, TestMask.a, True),
+                (TestMask.a, OtherTestMask.a, cls_cmp),
+                (TestMask.b, OtherTestMask.b, cls_cmp),
+                (TestMask.c, OtherTestMask.c, cls_cmp),
+                (TestMask.d, OtherTestMask.d, cls_cmp),
+                (TestMask.e, OtherTestMask.e, cls_cmp),
+                (OtherTestMask.a, TestMask.a, not cls_cmp),
+                (OtherTestMask.b, TestMask.b, not cls_cmp),
+                (OtherTestMask.c, TestMask.c, not cls_cmp),
+                (OtherTestMask.d, TestMask.d, not cls_cmp),
+                (OtherTestMask.e, TestMask.e, not cls_cmp),
+        ]:
+            self.assertEqual(a > b,
+                             e,
+                             'expected %r > %r to be %r' % (a, b, e))
+
+    def test_ge(self):
+        """class ..(BitMask)(..) >= class ..(BitMask)(..)
+        """
+
+        cls_cmp = TestMask >= OtherTestMask
+
+        for a, b, e in [
+                (TestMask.a, TestMask.a, True),
+                (TestMask.a, TestMask.b, False),
+                (TestMask.a, TestMask.c, False),
+                (TestMask.a, TestMask.d, False),
+                (TestMask.a, TestMask.e, False),
+                (TestMask.b, TestMask.a, True),
+                (TestMask.c, TestMask.a, True),
+                (TestMask.d, TestMask.a, True),
+                (TestMask.e, TestMask.a, True),
+                (TestMask.a, OtherTestMask.a, cls_cmp),
+                (TestMask.b, OtherTestMask.b, cls_cmp),
+                (TestMask.c, OtherTestMask.c, cls_cmp),
+                (TestMask.d, OtherTestMask.d, cls_cmp),
+                (TestMask.e, OtherTestMask.e, cls_cmp),
+                (OtherTestMask.a, TestMask.a, not cls_cmp),
+                (OtherTestMask.b, TestMask.b, not cls_cmp),
+                (OtherTestMask.c, TestMask.c, not cls_cmp),
+                (OtherTestMask.d, TestMask.d, not cls_cmp),
+                (OtherTestMask.e, TestMask.e, not cls_cmp),
+        ]:
+            self.assertEqual(a >= b,
+                             e,
+                             'expected %r >= %r to be %r' % (a, b, e))
