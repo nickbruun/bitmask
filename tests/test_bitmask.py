@@ -14,8 +14,8 @@ ABCDE_MASK = 0b11111
 integer_type = int
 if six.PY2:
     integer_type = long
-
-# ORDER: a, c, b, e, d
+else:
+    long = None
 
 
 class TestMask(BitMask):
