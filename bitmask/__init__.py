@@ -100,6 +100,7 @@ class _BitMaskClassDict(dict):
             if not value or bool(value & (value - 1)):
                 raise ValueError('Flag value must be a power of 2: %d' %
                                  (value))
+            value = integer_type(value)
             if value in self._flag_values:
                 raise ValueError('Flag with value %d already defined')
             self._flag_names.add(key)
