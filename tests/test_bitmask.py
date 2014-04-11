@@ -688,7 +688,8 @@ class BitMaskTestCase(TestCase):
         """class ..(BitMask)(..) < class ..(BitMask)(..)
         """
 
-        cls_cmp = TestMask < OtherTestMask
+        if six.PY2:
+            cls_cmp = TestMask < OtherTestMask
 
         for a, b, e in [
                 (TestMask.a, TestMask.a, False),
@@ -700,17 +701,18 @@ class BitMaskTestCase(TestCase):
                 (TestMask.c, TestMask.a, False),
                 (TestMask.d, TestMask.a, False),
                 (TestMask.e, TestMask.a, False),
-                (TestMask.a, OtherTestMask.a, cls_cmp),
-                (TestMask.b, OtherTestMask.b, cls_cmp),
-                (TestMask.c, OtherTestMask.c, cls_cmp),
-                (TestMask.d, OtherTestMask.d, cls_cmp),
-                (TestMask.e, OtherTestMask.e, cls_cmp),
-                (OtherTestMask.a, TestMask.a, not cls_cmp),
-                (OtherTestMask.b, TestMask.b, not cls_cmp),
-                (OtherTestMask.c, TestMask.c, not cls_cmp),
-                (OtherTestMask.d, TestMask.d, not cls_cmp),
-                (OtherTestMask.e, TestMask.e, not cls_cmp),
-        ]:
+        ] + [
+            (TestMask.a, OtherTestMask.a, cls_cmp),
+            (TestMask.b, OtherTestMask.b, cls_cmp),
+            (TestMask.c, OtherTestMask.c, cls_cmp),
+            (TestMask.d, OtherTestMask.d, cls_cmp),
+            (TestMask.e, OtherTestMask.e, cls_cmp),
+            (OtherTestMask.a, TestMask.a, not cls_cmp),
+            (OtherTestMask.b, TestMask.b, not cls_cmp),
+            (OtherTestMask.c, TestMask.c, not cls_cmp),
+            (OtherTestMask.d, TestMask.d, not cls_cmp),
+            (OtherTestMask.e, TestMask.e, not cls_cmp),
+        ] if six.PY2 else []:
             self.assertEqual(a < b,
                              e,
                              'expected %r < %r to be %r' % (a, b, e))
@@ -719,7 +721,8 @@ class BitMaskTestCase(TestCase):
         """class ..(BitMask)(..) <= class ..(BitMask)(..)
         """
 
-        cls_cmp = TestMask <= OtherTestMask
+        if six.PY2:
+            cls_cmp = TestMask <= OtherTestMask
 
         for a, b, e in [
                 (TestMask.a, TestMask.a, True),
@@ -731,17 +734,18 @@ class BitMaskTestCase(TestCase):
                 (TestMask.c, TestMask.a, False),
                 (TestMask.d, TestMask.a, False),
                 (TestMask.e, TestMask.a, False),
-                (TestMask.a, OtherTestMask.a, cls_cmp),
-                (TestMask.b, OtherTestMask.b, cls_cmp),
-                (TestMask.c, OtherTestMask.c, cls_cmp),
-                (TestMask.d, OtherTestMask.d, cls_cmp),
-                (TestMask.e, OtherTestMask.e, cls_cmp),
-                (OtherTestMask.a, TestMask.a, not cls_cmp),
-                (OtherTestMask.b, TestMask.b, not cls_cmp),
-                (OtherTestMask.c, TestMask.c, not cls_cmp),
-                (OtherTestMask.d, TestMask.d, not cls_cmp),
-                (OtherTestMask.e, TestMask.e, not cls_cmp),
-        ]:
+        ] + [
+            (TestMask.a, OtherTestMask.a, cls_cmp),
+            (TestMask.b, OtherTestMask.b, cls_cmp),
+            (TestMask.c, OtherTestMask.c, cls_cmp),
+            (TestMask.d, OtherTestMask.d, cls_cmp),
+            (TestMask.e, OtherTestMask.e, cls_cmp),
+            (OtherTestMask.a, TestMask.a, not cls_cmp),
+            (OtherTestMask.b, TestMask.b, not cls_cmp),
+            (OtherTestMask.c, TestMask.c, not cls_cmp),
+            (OtherTestMask.d, TestMask.d, not cls_cmp),
+            (OtherTestMask.e, TestMask.e, not cls_cmp),
+        ] if six.PY2 else []:
             self.assertEqual(a <= b,
                              e,
                              'expected %r <= %r to be %r' % (a, b, e))
@@ -750,7 +754,8 @@ class BitMaskTestCase(TestCase):
         """class ..(BitMask)(..) > class ..(BitMask)(..)
         """
 
-        cls_cmp = TestMask > OtherTestMask
+        if six.PY2:
+            cls_cmp = TestMask > OtherTestMask
 
         for a, b, e in [
                 (TestMask.a, TestMask.a, False),
@@ -762,17 +767,18 @@ class BitMaskTestCase(TestCase):
                 (TestMask.c, TestMask.a, True),
                 (TestMask.d, TestMask.a, True),
                 (TestMask.e, TestMask.a, True),
-                (TestMask.a, OtherTestMask.a, cls_cmp),
-                (TestMask.b, OtherTestMask.b, cls_cmp),
-                (TestMask.c, OtherTestMask.c, cls_cmp),
-                (TestMask.d, OtherTestMask.d, cls_cmp),
-                (TestMask.e, OtherTestMask.e, cls_cmp),
-                (OtherTestMask.a, TestMask.a, not cls_cmp),
-                (OtherTestMask.b, TestMask.b, not cls_cmp),
-                (OtherTestMask.c, TestMask.c, not cls_cmp),
-                (OtherTestMask.d, TestMask.d, not cls_cmp),
-                (OtherTestMask.e, TestMask.e, not cls_cmp),
-        ]:
+        ] + [
+            (TestMask.a, OtherTestMask.a, cls_cmp),
+            (TestMask.b, OtherTestMask.b, cls_cmp),
+            (TestMask.c, OtherTestMask.c, cls_cmp),
+            (TestMask.d, OtherTestMask.d, cls_cmp),
+            (TestMask.e, OtherTestMask.e, cls_cmp),
+            (OtherTestMask.a, TestMask.a, not cls_cmp),
+            (OtherTestMask.b, TestMask.b, not cls_cmp),
+            (OtherTestMask.c, TestMask.c, not cls_cmp),
+            (OtherTestMask.d, TestMask.d, not cls_cmp),
+            (OtherTestMask.e, TestMask.e, not cls_cmp),
+        ] if six.PY2 else []:
             self.assertEqual(a > b,
                              e,
                              'expected %r > %r to be %r' % (a, b, e))
@@ -781,7 +787,8 @@ class BitMaskTestCase(TestCase):
         """class ..(BitMask)(..) >= class ..(BitMask)(..)
         """
 
-        cls_cmp = TestMask >= OtherTestMask
+        if six.PY2:
+            cls_cmp = TestMask >= OtherTestMask
 
         for a, b, e in [
                 (TestMask.a, TestMask.a, True),
@@ -793,17 +800,18 @@ class BitMaskTestCase(TestCase):
                 (TestMask.c, TestMask.a, True),
                 (TestMask.d, TestMask.a, True),
                 (TestMask.e, TestMask.a, True),
-                (TestMask.a, OtherTestMask.a, cls_cmp),
-                (TestMask.b, OtherTestMask.b, cls_cmp),
-                (TestMask.c, OtherTestMask.c, cls_cmp),
-                (TestMask.d, OtherTestMask.d, cls_cmp),
-                (TestMask.e, OtherTestMask.e, cls_cmp),
-                (OtherTestMask.a, TestMask.a, not cls_cmp),
-                (OtherTestMask.b, TestMask.b, not cls_cmp),
-                (OtherTestMask.c, TestMask.c, not cls_cmp),
-                (OtherTestMask.d, TestMask.d, not cls_cmp),
-                (OtherTestMask.e, TestMask.e, not cls_cmp),
-        ]:
+        ] + [
+            (TestMask.a, OtherTestMask.a, cls_cmp),
+            (TestMask.b, OtherTestMask.b, cls_cmp),
+            (TestMask.c, OtherTestMask.c, cls_cmp),
+            (TestMask.d, OtherTestMask.d, cls_cmp),
+            (TestMask.e, OtherTestMask.e, cls_cmp),
+            (OtherTestMask.a, TestMask.a, not cls_cmp),
+            (OtherTestMask.b, TestMask.b, not cls_cmp),
+            (OtherTestMask.c, TestMask.c, not cls_cmp),
+            (OtherTestMask.d, TestMask.d, not cls_cmp),
+            (OtherTestMask.e, TestMask.e, not cls_cmp),
+        ] if six.PY2 else []:
             self.assertEqual(a >= b,
                              e,
                              'expected %r >= %r to be %r' % (a, b, e))
