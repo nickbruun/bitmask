@@ -2,10 +2,10 @@ import six
 
 
 integer_type = int
+if six.PY3:
+    long = None
 if six.PY2:
     integer_type = long
-else:
-    long = None
 
 
 def _is_descriptor(obj):

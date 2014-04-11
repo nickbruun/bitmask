@@ -12,10 +12,10 @@ ABCDE_MASK = 0b11111
 
 
 integer_type = int
+if six.PY3:
+    long = None
 if six.PY2:
     integer_type = long
-else:
-    long = None
 
 
 class TestMask(BitMask):
