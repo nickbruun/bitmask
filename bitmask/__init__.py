@@ -135,9 +135,9 @@ class BitMaskMeta(type):
         bitmask_cls._flag_values_ordered_ = \
             sorted(tuple(classdict._flags.values()))
         bitmask_cls._flag_name_to_value_ = OrderedDict(classdict._flags)
-        bitmask_cls._flag_value_to_name_ = {
-            v: k for k, v in classdict._flags.items()
-        }
+        bitmask_cls._flag_value_to_name_ = dict([
+            (v, k) for k, v in classdict._flags.items()
+        ])
         bitmask_cls._valid_mask_ = sum(bitmask_cls._flag_values_)
 
         return bitmask_cls
