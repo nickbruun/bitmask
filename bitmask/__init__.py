@@ -139,7 +139,7 @@ class BitMaskMeta(type):
         bitmask_cls._flag_value_to_name_ = dict([
             (v, k) for k, v in classdict._flags.items()
         ])
-        bitmask_cls._valid_mask_ = sum(bitmask_cls._flag_values_)
+        bitmask_cls._valid_mask_ = integer_type(sum(bitmask_cls._flag_values_))
 
         return bitmask_cls
 
@@ -221,7 +221,7 @@ Derive from this class to define new bit masks.""",
 
 
 def __init__(self, value=integer_type(0)):
-    if value & ~(self.__class__._valid_mask_):
+    if integer_type(value) & ~(self.__class__._valid_mask_):
         raise ValueError('%d is not a valid %s bit mask value' %
                          (value, self.__class__.__name__))
     self._value_ = integer_type(value)
