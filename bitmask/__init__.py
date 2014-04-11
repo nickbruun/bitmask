@@ -1,4 +1,3 @@
-from collections import OrderedDict
 import six
 
 
@@ -134,7 +133,7 @@ class BitMaskMeta(type):
         bitmask_cls._flag_values_ = set(classdict._flags.values())
         bitmask_cls._flag_values_ordered_ = \
             sorted(tuple(classdict._flags.values()))
-        bitmask_cls._flag_name_to_value_ = OrderedDict(classdict._flags)
+        bitmask_cls._flag_name_to_value_ = classdict._flags
         bitmask_cls._flag_value_to_name_ = dict([
             (v, k) for k, v in classdict._flags.items()
         ])
@@ -239,8 +238,9 @@ del __repr__
 
 def __str__(self):
     names = [
-        '%s.%s' % (self.__class__.__name__, n)
-        for n, v in self.__class__._flag_name_to_value_.items()
+        '%s.%s' % (self.__class__.__name__,
+                   self.__class__._flag_value_to_name_[v])
+        for v in self.__class__._flag_values_ordered_
         if self._value_ & v
     ]
     return ' | '.join(names)
