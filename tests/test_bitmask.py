@@ -664,3 +664,22 @@ class BitMaskTestCase(TestCase):
         ]:
             with self.assertRaises(AttributeError):
                 v.name
+
+    def test_hash(self):
+        """hash(class ..(BitMask)(..))
+        """
+
+        hashes = [hash(m) for m in [
+            TestMask.a,
+            TestMask.b,
+            TestMask.c,
+            TestMask.d,
+            TestMask.e,
+            OtherTestMask.a,
+            OtherTestMask.b,
+            OtherTestMask.c,
+            OtherTestMask.d,
+            OtherTestMask.e,
+        ]]
+
+        self.assertEqual(len(hashes), len(set(hashes)))

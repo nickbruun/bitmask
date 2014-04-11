@@ -368,6 +368,12 @@ _bitmask_dict['__ne__'] = __ne__
 del __ne__
 
 
+def __hash__(self):
+    return hash((self.__class__, self._value_))
+_bitmask_dict['__hash__'] = __hash__
+del __hash__
+
+
 def enum_nonzero(self):
     return bool(self._value_)
 _bitmask_dict['__nonzero__'] = enum_nonzero
