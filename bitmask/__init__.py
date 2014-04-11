@@ -374,6 +374,20 @@ _bitmask_dict['__hash__'] = __hash__
 del __hash__
 
 
+def __cmp__(self, other):
+    cls_cmp = cmp(self.__class__, other.__class__)
+    if cls_cmp:
+        return cls_cmp
+    elif self._value_ < other._value_:
+        return -1
+    elif self._value_ == other._value_:
+        return 0
+    else:
+        return 1
+_bitmask_dict['__cmp__'] = __cmp__
+del __cmp__
+
+
 def enum_nonzero(self):
     return bool(self._value_)
 _bitmask_dict['__nonzero__'] = enum_nonzero

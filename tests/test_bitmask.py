@@ -683,3 +683,37 @@ class BitMaskTestCase(TestCase):
         ]]
 
         self.assertEqual(len(hashes), len(set(hashes)))
+
+    def test_cmp(self):
+        """cmp(class ..(BitMask)(..), ..)
+        """
+
+        cls_cmp = cmp(TestMask, OtherTestMask)
+
+        for a, b, e in [
+                (TestMask.a, TestMask.a, 0),
+                (TestMask.a, TestMask.b, -1),
+                (TestMask.a, TestMask.c, -1),
+                (TestMask.a, TestMask.d, -1),
+                (TestMask.a, TestMask.e, -1),
+                (TestMask.b, TestMask.a, 1),
+                (TestMask.c, TestMask.a, 1),
+                (TestMask.d, TestMask.a, 1),
+                (TestMask.e, TestMask.a, 1),
+                (TestMask.a, OtherTestMask.a, cls_cmp),
+                (TestMask.b, OtherTestMask.b, cls_cmp),
+                (TestMask.c, OtherTestMask.c, cls_cmp),
+                (TestMask.d, OtherTestMask.d, cls_cmp),
+                (TestMask.e, OtherTestMask.e, cls_cmp),
+                (OtherTestMask.a, TestMask.a, -cls_cmp),
+                (OtherTestMask.b, TestMask.b, -cls_cmp),
+                (OtherTestMask.c, TestMask.c, -cls_cmp),
+                (OtherTestMask.d, TestMask.d, -cls_cmp),
+                (OtherTestMask.e, TestMask.e, -cls_cmp),
+        ]:
+            if e == 0:
+                self.assertEqual(cmp(a, b), 0)
+            elif e < 0:
+                self.assertLess(cmp(a, b), 0)
+            else:
+                self.assertGreater(cmp(a, b), 0)
