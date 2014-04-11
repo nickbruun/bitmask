@@ -366,16 +366,16 @@ _bitmask_dict['__ne__'] = __ne__
 del __ne__
 
 
-if six.PY2:
-    def __nonzero__(self):
-        return bool(self._value_)
-        _bitmask_dict['__nonzero__'] = __nonzero__
-    del __nonzero__
-else:
-    def __bool__(self):
-        return bool(self._value_)
-    _bitmask_dict['__bool__'] = __bool__
-    del __bool__
+def enum_nonzero(self):
+    return bool(self._value_)
+_bitmask_dict['__nonzero__'] = enum_nonzero
+del enum_nonzero
+
+
+def enum_bool(self):
+    return bool(self._value_)
+_bitmask_dict['__bool__'] = enum_bool
+del enum_bool
 
 
 def add(self, other):
